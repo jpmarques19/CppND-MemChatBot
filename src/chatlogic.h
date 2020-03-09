@@ -17,9 +17,8 @@ private:
     // data handles (owned)
     std::vector<std::unique_ptr<GraphNode>> _nodes;
     std::vector<GraphEdge *> _edges;
-
+    
     // data handles (not owned)
-    GraphNode *_currentNode;
     ChatBot *_chatBot;
     ChatBotPanelDialog *_panelDialog;
 
@@ -44,6 +43,8 @@ public:
     void SendMessageToChatbot(std::string message);
     void SendMessageToUser(std::string message);
     wxBitmap *GetImageFromChatbot();
+
+    GraphNode *_currentNode;
 };
 
 #endif /* CHATLOGIC_H_ */

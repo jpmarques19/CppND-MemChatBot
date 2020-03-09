@@ -4,6 +4,7 @@
 #include <wx/bitmap.h>
 #include <string>
 #include <memory>
+#include <iostream>
 
 class GraphNode; // forward declaration
 class ChatLogic; // forward declaration
@@ -15,9 +16,7 @@ private:
     std::unique_ptr<wxBitmap> _image; // avatar image
     
     // data handles (not owned)
-    GraphNode *_currentNode;
     GraphNode *_rootNode;
-    ChatLogic *_chatLogic;
 
     // proprietary functions
     int ComputeLevenshteinDistance(std::string s1, std::string s2);
@@ -41,6 +40,8 @@ public:
 
     // communication
     void ReceiveMessageFromUser(std::string message);
+    ChatLogic *_chatLogic;
+    GraphNode *_currentNode;
 };
 
 #endif /* CHATBOT_H_ */
