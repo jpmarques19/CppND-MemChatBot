@@ -29,20 +29,22 @@ void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge)
 ////
 void GraphNode::MoveChatbotHere(ChatBot *chatbot)
 {
-    _chatBot = std::move(*chatbot);    
-    ChatLogic *chatLogicHandle = _chatBot._chatLogic;
+    _chatBot = std::make_unique<ChatBot>();
+    *_chatBot.get() = std::move(*chatbot);   
+
+    ChatLogic *chatLogicHandle = (_chatBot.get())->_chatLogic;
     
     if (chatLogicHandle) 
     {
-        chatLogicHandle->_currentNode = _chatBot._currentNode;
-        chatLogicHandle->SetChatbotHandle(&_chatBot);
+        chatLogicHandle->_currentNode = (_chatBot.get())->_currentNode;
+        chatLogicHandle->SetChatbotHandle(_chatBot.get());
     }
-    _chatBot.SetCurrentNode(this);
+    (_chatBot.get())->SetCurrentNode(this);
 }
 
 void GraphNode::MoveChatbotToNewNode(GraphNode *newNode)
 {
-    newNode->MoveChatbotHere(&_chatBot);
+    newNode->MoveChatbotHere(_chatBot.get());
 }
 ////
 //// EOF STUDENT CODE
@@ -56,9 +58,4 @@ GraphEdge *GraphNode::GetChildEdgeAtIndex(int index)
 
     ////
     //// EOF STUDENT CODE
-}
-
-ChatBot* GraphNode::GetChatbotHandle()
-{
-    return &_chatBot; 
 }

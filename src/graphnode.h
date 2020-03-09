@@ -23,7 +23,6 @@ private:
     // proprietary members
     int _id;
     std::vector<std::string> _answers;
-    ChatBot _chatBot;
 
 public:
     // constructor / destructor
@@ -43,7 +42,9 @@ public:
     void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
     void MoveChatbotHere(ChatBot *chatbot);
     void MoveChatbotToNewNode(GraphNode *newNode);
-    ChatBot* GetChatbotHandle();
+
+    //Chatbot placecholder
+    std::unique_ptr<ChatBot> _chatBot;
 };
 
 #endif /* GRAPHNODE_H_ */
